@@ -1,0 +1,18 @@
+.moviesList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px;
+  .card {
+    height: 450px;
+  }
+  a {
+    flex: 0 1 19%;
+    margin-bottom: 20px;
+  }
+}
+
+.pagination {
+  justify-content: center;
+}

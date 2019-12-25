@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./styles/index.scss";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Homepage from "./Homepage";
+import OneMovie from "./OneMovie";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <div className="header">
+          <h1>Movie App</h1>
+        </div>
+        <Router>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route path="/:one-movie" component={OneMovie}></Route>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
