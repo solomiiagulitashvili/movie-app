@@ -1,10 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./styles/index.scss";
 import { Link } from "react-router-dom";
 import {
   Card,
   CardImg,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
@@ -12,6 +11,7 @@ import {
   PaginationItem,
   PaginationLink
 } from "reactstrap";
+import Loader from "react-loader-spinner";
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class Homepage extends React.Component {
     this.state = {
       moviesList: [],
       page: 1,
-      totalPages: 500
+      totalPages: 500,
+      isLoading: true
     };
   }
 
@@ -32,13 +33,16 @@ class Homepage extends React.Component {
         if (res.ok) {
           return res.json();
         }
-        throw new Error("error");
+        throw new Error('error');
+      })
+      .catch(err => {
+        alert(err.message);
       })
       .then(moviesList => {
-        console.log(moviesList);
         this.setState({
           moviesList: moviesList.results,
-          totalPages: moviesList.total_pages
+          totalPages: moviesList.total_pages,
+          isLoading: false
         });
       });
   };
@@ -47,22 +51,22 @@ class Homepage extends React.Component {
     const { totalPages, page } = this.state;
     let newPage;
     switch (currentPage) {
-      case "first":
+      case 'first':
         newPage = 1;
         break;
-      case "previous":
+      case 'previous':
         newPage = page - 1;
         break;
-      case "next":
+      case 'next':
         newPage = page + 1;
         break;
-      case "last":
+      case 'last':
         newPage = totalPages - 1;
         break;
       default:
         break;
     }
-    this.setState({ page: newPage }, () => this.getMovies());
+    this.setState({ page: newPage, isLoading: false }, () => this.getMovies());
   };
 
   componentDidMount() {
@@ -74,41 +78,52 @@ class Homepage extends React.Component {
     return (
       <div>
         <div className="moviesList">
-          {moviesList.map(movie => (
-            <Link to={{ pathname: "/one-movie", aboutProps: { id: movie.id } }}>
-              <Card>
-                <CardImg
-                  top
-                  src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
-                />
-                <CardBody>
-                  <CardTitle>{movie.title} </CardTitle>
-                  <CardSubtitle>{movie.release_date} </CardSubtitle>
-                  <CardText></CardText>
-                </CardBody>
-              </Card>
-            </Link>
-          ))}
+          {this.state.isLoading ? (
+            <Loader
+              className="loader"
+              type="TailSpin"
+              color="#9c8abd"
+              height={100}
+              width={100}
+            />
+          ) : (
+            <Fragment>
+              {moviesList.map(movie => (
+                <Link to={`/one-movie/${movie.id}`}>
+                  <Card>
+                    <CardImg
+                      top
+                      src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
+                    />
+                    <CardBody>
+                      <CardTitle>{movie.title} </CardTitle>
+                      <CardSubtitle>{movie.release_date} </CardSubtitle>
+                    </CardBody>
+                  </Card>
+                </Link>
+              ))}
+            </Fragment>
+          )}
         </div>
 
         <Pagination aria-label="Page navigation example" className="pagination">
           <PaginationItem>
-            <PaginationLink first onClick={() => this.handleClick("first")} />
+            <PaginationLink first onClick={() => this.handleClick('first')} />
           </PaginationItem>
           <PaginationItem>
             <PaginationLink
               previous
-              onClick={() => this.handleClick("previous")}
+              onClick={() => this.handleClick('previous')}
             />
           </PaginationItem>
           <PaginationItem active>
             <PaginationLink>1</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink next onClick={() => this.handleClick("next")} />
+            <PaginationLink next onClick={() => this.handleClick('next')} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink last onClick={() => this.handleClick("last")} />
+            <PaginationLink last onClick={() => this.handleClick('last')} />
           </PaginationItem>
         </Pagination>
       </div>

@@ -1,18 +1,64 @@
-.moviesList {
+.moviesList,
+.similarMoviesList {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 40px;
+  min-height: 500px;
   .card {
-    height: 450px;
+    height: 500px;
+    color: var(--dark);
+    border: 1px solid rgba(#6f42c1, 0.3);
+    @media (max-width: 1024px) {
+      height: 410px;
+    }
+    @media (max-width: 496px) {
+      height: 300px;
+    }
+    .card-title,
+    .card-subtitle {
+      @media (max-width: 496px) {
+        font-size: 12px;
+      }
+    }
   }
   a {
     flex: 0 1 19%;
     margin-bottom: 20px;
+    @media (max-width: 768px) {
+      flex: 0 1 24%;
+    }
+    @media (max-width: 496px) {
+      flex: 0 1 32%;
+    }
   }
 }
 
 .pagination {
   justify-content: center;
+}
+.mb-3 {
+  padding: 40px;
+}
+
+.active {
+  .page-link {
+    background-color: var(--purple) !important;
+    border-color: var(--purple) !important;
+    color: white;
+  }
+}
+.page-link {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+h3 {
+  padding-left: 40px;
+}
+
+.loader {
+  top: calc(50vh - 50px);
+  left: calc(50vw - 50px);
+  position: absolute;
 }
