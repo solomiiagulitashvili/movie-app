@@ -10,4 +10,11 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  a {
+    color: white;
+    &:hover {
+      text-decoration: none;
+    }
+    
+  }
 }

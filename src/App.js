@@ -1,15 +1,18 @@
-import React from "react";
-import "./styles/index.scss";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Homepage from "./Homepage";
-import OneMovie from "./OneMovie";
+import React from 'react';
+import './styles/index.scss';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Homepage from './Homepage';
+import OneMovie from './OneMovie';
+
 
 const App = () => (
   <div className="App">
-    <div className="header">
-      <h1>Movie App</h1>
-    </div>
     <Router>
+    <div className="header">
+      <Link to="/">
+        <h1>Movie App</h1>
+      </Link>
+    </div>
       <Route exact path="/">
         <Homepage />
       </Route>

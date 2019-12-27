@@ -117,7 +117,7 @@ class Homepage extends React.Component {
             />
           </PaginationItem>
           <PaginationItem active>
-            <PaginationLink>1</PaginationLink>
+              <PaginationLink>{this.state.page}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationLink next onClick={() => this.handleClick('next')} />

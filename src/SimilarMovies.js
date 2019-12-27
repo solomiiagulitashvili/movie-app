@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
-import "./styles/index.scss";
-import { Link } from "react-router-dom";
+import React, { Fragment } from 'react';
+import './styles/index.scss';
+import { Link } from 'react-router-dom';
 import {
   Card,
   CardImg,
@@ -10,9 +10,9 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
-} from "reactstrap";
-import Loader from "react-loader-spinner";
-import PropTypes from "prop-types";
+} from 'reactstrap';
+import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 
 class SimilarMovies extends React.Component {
   constructor(props) {
@@ -123,7 +123,7 @@ class SimilarMovies extends React.Component {
             />
           </PaginationItem>
           <PaginationItem active>
-            <PaginationLink>1</PaginationLink>
+            <PaginationLink>{this.state.page} </PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationLink next onClick={() => this.handleClick('next')} />
